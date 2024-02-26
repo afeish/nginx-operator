@@ -1,0 +1,50 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: k8s.v0.0.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: Nginx is the Schema for the nginxes API
+      displayName: Nginx
+      kind: Nginx
+      name: nginxes.nginx.example.org
+      version: v1alpha1
+  description: a demo of operator-sdk usecase for nginx
+  displayName: nginx
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - nginx
+  - operator-sdk
+  - k8s
+  links:
+  - name: K8s
+    url: https://k8s.domain
+  maintainers:
+  - email: neocxf@gmail.com
+    name: neocxf
+  maturity: alpha
+  provider:
+    name: neocxf
+    url: https://github.com/neocxf/nginx-operator
+  version: 0.0.0

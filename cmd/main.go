@@ -92,7 +92,7 @@ func main() {
 	if err = (&controller.NginxReconciler{
 		Client:   mgr.GetClient(),
 		Scheme:   mgr.GetScheme(),
-		Recorder: mgr.GetEventRecorderFor("memcached-controller"),
+		Recorder: mgr.GetEventRecorderFor("nginx-controller"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Nginx")
 		os.Exit(1)

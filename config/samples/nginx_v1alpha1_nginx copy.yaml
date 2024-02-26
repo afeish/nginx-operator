@@ -8,10 +8,19 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/created-by: k8s
   name: nginx-sample
+
 spec:
-  image: nginx
-  replicas: 1
+  image: nginx:stable-alpine # if unspecified, defaults to "nginx:latest"
   port: 80
+  replicas: 2
+  healthcheckPath: /healthz  # if unspecified, doesn't set readiness probes on nginx pods
+  resources:                 # if unspecified, defaults to unlimited
+    limits:
+      cpu: 100m
+      memory: 32Mi
+    requests:
+      cpu: 100m
+      memory: 32Mi
   config:
     kind: Inline
     value: |-
@@ -43,17 +52,16 @@ spec:
           }
         }
       }
-
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: my-autoscaled-nginx
 spec:
-  maxReplicas: 5
+  maxReplicas: 10
   minReplicas: 2
   targetCPUUtilizationPercentage: 85
   scaleTargetRef:
     apiVersion: nginx.example.org/v1alpha1
     kind: Nginx
-    name: nginx-sample
+    name: my-autoscaled-nginx
